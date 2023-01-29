@@ -4,8 +4,8 @@ import cv2ops
 import cv2
 import numpy as np
 import jsonpickle
-g_debug = False
-g_resizeRate = 0.5
+g_debug = True
+g_resizeRate = 1
 
 
 class Config():
@@ -169,9 +169,9 @@ class ActiveImageData():
                 self.source_resized = cv2ops.resize_img(self.source, g_resizeRate)
                 if g_debug:
                     self.debug0 = cv2ops.create_debug0(self.source_resized)
-                    self.debug1 = cv2ops.create_debug1(self.source_resized)
-                    self.debug2 = cv2ops.create_debug2(self.source_resized)
-                    self.debug3 = cv2ops.create_debug3(self.source_resized)
+                    #self.debug1 = cv2ops.create_debug1(self.source_resized)
+                    #self.debug2 = cv2ops.create_debug2(self.source_resized)
+                    #self.debug3 = cv2ops.create_debug3(self.source_resized)
             else:
                 self.source_resized = None
 

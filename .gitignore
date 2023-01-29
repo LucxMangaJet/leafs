@@ -4,3 +4,4 @@ ui/config.json
 .ipynb_checkpoints
 old
 photos_list_export.csv
+photos_list.json

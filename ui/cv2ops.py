@@ -47,9 +47,15 @@ def find_square_rect_in_contours(contours):
     return max_idx, max_rect
 
 def find_leaves_contours_in_GRAY(_image):
-    _, contours, hierarchy = cv2.findContours(_image, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    fitting_size = filter_contours(_image,contours)
 
+    if cv2.getVersionMajor() in [2, 4]:
+    # OpenCV 2, OpenCV 4 case
+        contours, hierarchy = cv2.findContours(_image, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    else:
+    # OpenCV 3 case
+        _, contours, hierarchy = cv2.findContours(_image, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+    fitting_size = filter_contours(_image,contours)
     return fitting_size, hierarchy
 
 def filter_contours(_image, _contours):

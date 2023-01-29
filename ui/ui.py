@@ -11,13 +11,10 @@ import cv2
 import time
 import numpy as np
 
-
 import cv2ops
 import dataops
 from data import Data, ActiveImageData, Config
-from control_operation import ThreadedOperationWidget
 from globals import *
-
 
 class Leafz(BaseWidget):
     def __init__(self, *args, **kwargs):
@@ -40,10 +37,6 @@ class Leafz(BaseWidget):
         self.preview = ImagePreview(self.preview_onSelectSquare, self.preview_onRemoveLeaf)
         self.preview.parent = self
         self.dock.value = self.preview
-
-        self.threadedOp = ThreadedOperationWidget()
-        self.threadedOp.parent = self
-        self.threadedOp.hide()
 
         self.mainmenu = [
             {"File" : [
@@ -201,8 +194,8 @@ class ImagePreview(BaseWidget):
         self.onSelectSquareCallback = onSelectSquare
         self.onRemoveLeafCallback = onRemoveLeaf
 
-        self._img.add_popup_menu_option("Select Square", self.onSelectSquare)
         self._img.add_popup_menu_option("Remove Leaf", self.onRemoveLeaf)
+        self._img.add_popup_menu_option("Select Square", self.onSelectSquare)
 
         self._imgDebug0 = ControlImage()
         self._imgDebug1 = ControlImage()
