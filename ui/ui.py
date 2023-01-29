@@ -214,6 +214,7 @@ class ImagePreview(BaseWidget):
 
     def get_mouse_point(self):
         p = self._img._imageWidget._get_current_mouse_point()
+        print(p)
         return p
  
     def onRemoveLeaf(self):
