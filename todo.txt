@@ -1,0 +1,5 @@
+improve leaf recognition
+
+advanced options to adjust an image individually
+    exposure
+    threshold level
