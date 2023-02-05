@@ -26,13 +26,15 @@ class Leafz(BaseWidget):
         self.prev.value = self.onPrevClicked
         self.next = ControlButton(">")
         self.next.value = self.onNextClicked
-        self.addLeaf = ControlButton("Apply")
-        self.addLeaf.value = self.onActionClicked
+        self.apply = ControlButton("Apply")
+        self.apply.value = self.onApplyClicked
+        self.apply2 = ControlButton("Apply (no filters)")
+        self.apply2.value = self.onApply2Clicked
         self.check = ControlCheckBox("Ready")
         self.check.changed_event = self.onCheckClicked
         self.dock = ControlEmptyWidget()
 
-        self.formset = ["dock", ("info","check"), ("prev","addLeaf","next")]
+        self.formset = ["dock", ("info","check"), ("prev","apply", "apply2","next")]
 
         self.preview = ImagePreview(self.preview_onSelectSquare, self.preview_onRemoveLeaf)
         self.preview.parent = self
@@ -110,8 +112,12 @@ class Leafz(BaseWidget):
             with g_data_lock:
                 g_data.exportAsCSV(file)
 
-    def onActionClicked(self):
-        dataops.run_auto_current(g_data)
+    def onApplyClicked(self):
+        dataops.run_auto_current(g_data, False)
+        self.refresh()
+
+    def onApply2Clicked(self):
+        dataops.run_auto_current(g_data, True)
         self.refresh()
 
     def onCheckClicked(self):

@@ -9,7 +9,7 @@ def reorder_leaves(active_data, use_lr):
     active_data.leaves.sort(key = lambda x:cv2ops.contour_center(x.contour)[indx])
 
 
-def run_auto_on_count(data, start,count):
+def run_auto_on_count(data, start,count,noFilter):
     with g_data_lock:
         for x in range(count):
             index = start + x
@@ -22,7 +22,7 @@ def run_auto_on_count(data, start,count):
             if img is None:
                 continue
 
-            square,leaves = cv2ops.find_all_in_RGB(img,0)
+            square,leaves = cv2ops.find_all_in_RGB(img,0,noFilter)
             imgData.leaves = leaves
             imgData.square = square
             reorder_leaves(imgData, True)
@@ -32,15 +32,15 @@ def run_auto_on_count(data, start,count):
         print ("done")
 
 def run_auto_all(data):
-    run_auto_on_count(data, 0, len(data.images))
+    run_auto_on_count(data, 0, len(data.images), False)
 
 def run_auto_10(data):
     dif = len(data.images) - data.activeIndex
-    run_auto_on_count(data, max(0,data.activeIndex), min(10, dif))
+    run_auto_on_count(data, max(0,data.activeIndex), min(10, dif), False)
 
-def run_auto_current(data):
+def run_auto_current(data, noFilter):
     if data.activeIndex >= 0:
-        run_auto_on_count(data, data.activeIndex,1)
+        run_auto_on_count(data, data.activeIndex,1,noFilter)
 
 def manual_select_square(activeData, point):
     for x in range(len(activeData.leaves)):

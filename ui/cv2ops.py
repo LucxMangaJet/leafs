@@ -204,7 +204,7 @@ def leaf_passes_checks(source, image_gray, leaf):
 
     return True
 
-def find_all_in_RGB(source, threshold_offset):
+def find_all_in_RGB(source, threshold_offset, noChecks):
     image_gray = cv2.cvtColor(source, cv2.COLOR_RGB2GRAY)
     ret,image_otsu = cv2.threshold(image_gray,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
     #apply threshold offset if defined
@@ -220,6 +220,7 @@ def find_all_in_RGB(source, threshold_offset):
 
     leaves = filter_holes_in_leaves(contours, hierarchy)  
 
-    leaves[:] = [x for x in leaves if leaf_passes_checks(source, image_gray, x)]
+    if not noChecks:
+        leaves[:] = [x for x in leaves if leaf_passes_checks(source, image_gray, x)]
     
     return square, leaves
